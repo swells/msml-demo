@@ -13,56 +13,38 @@
 
     <core-scaffold>
         <core-header-panel navigation flex mode="seamed">
-            <core-toolbar>DeployR</core-toolbar>
-            <!--
-            <core-menu theme="core-light-theme">
-                <core-item icon="polymer" label="item1"></core-item>
-                <core-item icon="settings" label="item2"></core-item>
-            </core-menu>
-            -->
-
+          <core-toolbar>DeployR</core-toolbar>
           <div class="content">
       
-           <deployr-dropdown-menu 
-              rscript="faithful" 
-              rinput="n_breaks" 
-              rtype="numeric" 
-              watch="true"
-              label="Number of bins in histogram"
-              selected="10"
-              items='{ "labels": [10, 20, 35, 50], "values": [10, 20, 35, 50] }' >
-           </deployr-dropdown-menu>
+             <deployr-dropdown-menu 
+                rscript="faithful" 
+                rinput="n_breaks" 
+                rtype="numeric" 
+                watch="true"
+                label="Number of bins in histogram"
+                selected="10"
+                items='{ "labels": [10, 20, 35, 50], "values": [10, 20, 35, 50] }' >
+             </deployr-dropdown-menu>
 
-           <deployr-checkbox 
-              rscript="faithful" 
-              rinput="individual_obs" 
-              rtype="logical" 
-              watch="true" 
-              label="Individual observations">
-           </deployr-checkbox>         
+             <deployr-checkbox 
+                rscript="faithful" 
+                rinput="individual_obs" 
+                rtype="logical" 
+                watch="true" 
+                label="Individual observations">
+             </deployr-checkbox>         
                        
-           <deployr-checkbox         
-              rscript="faithful" 
-              rinput="density" 
-              rtype="logical" 
-              watch="true" 
-              label="Density estimate">
-           </deployr-checkbox>
-
+             <deployr-checkbox         
+                rscript="faithful" 
+                rinput="density" 
+                rtype="logical" 
+                watch="true" 
+                label="Density estimate">
+             </deployr-checkbox>
           </div>
         </core-header-panel>
-        <div tool>Title: {{ rscript.faithful.inputs.bw_adjust }}</div>
+        <div tool>Title</div>
         <div class="content">
-
-                
-           <deployr-table 
-              data="{{data}}" 
-              columns="{{columns}}" 
-              sortColumn="p50" 
-              sortDescending="false">
-           </deployr-table>
-
-           <br>
            <deployr-plot 
               rscript="faithful" 
               routput="plot"
