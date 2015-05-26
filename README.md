@@ -99,7 +99,7 @@ for the purpose of the demonstration.
 ### deployr-server
 
 The `deployr-server` element is used to wire the DeployR server and UI up. It
-sets up an I/O abstraction between DeployR and the UI and well as manages basic 
+sets up an I/O abstraction between DeployR and the UI well as manages basic 
 authentication and R Session orchestration.
 
 ```html
