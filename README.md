@@ -6,6 +6,7 @@
 
 ## Quick start
 
+0. Install [Node.js](http://nodejs.org/) 
 1. ```$ git clone https://github.com/deployr/msml-demo.git```
 2. ```$ cd msml-demo```
 3. ```$ npm install```
