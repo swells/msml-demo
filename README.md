@@ -1,4 +1,8 @@
-# DeployR MSML Demo
+# DeployR R Analytics Integration
+
+Example POC that uses HTML5 Web Components to Declaratively bind DeployR enabled 
+R Scripts and R Code blocks to the UI. Elements can be composed to create more
+complicated R Analytic wep applications without needing to know JavaScript/CSS/HTML.
 
 ## Prerequisites
 
@@ -125,11 +129,11 @@ Example:
 
 ```html
 <deployr-rscript 
-   name="uspop" 
-   author="swells" 
+   name="RUGclusters" 
+   author="sheri" 
    directory="geo" 
    inputs="nclust" 
-   outputs="RRevoRUGS_2014,aggdata"
+   outputs="RRevoRUGS_2014,aggdata,plot"
    runOnload="true">
 </deployr-rscript>
 
@@ -154,16 +158,6 @@ from the list to a DeployR R Script _input_.
 
 Example:
 ```html
-<deployr-dropdown-menu 
-   rscript="uspop" 
-   rinput="nclus" 
-   rtype="numeric" 
-   watch="true"
-   label="K-Means Cluster Analysis"
-   selected="1"
-   items='{ "labels": [1, 2, 3, 4, 5], "values": [1, 2, 3, 4, 5] }' >
-</deployr-dropdown-menu>
-
 <deployr-dropdown-menu 
    rscript="faithful" 
    rinput="n_breaks" 
@@ -216,7 +210,21 @@ state to a DeployR R Script _input_.
 
 Example:
 
-```html     
+```html   
+<deployr-slider
+  rscript="RUGclusters" 
+  rinput="nclus" 
+  rtype="numeric" 
+  watch="true" 
+  width="400px"
+  min="2" 
+  max="7" 
+  value="1"
+  step="1"
+  pin="true"
+  snaps="false">
+</deployr-slider>
+
 <deployr-slider
   rscript="faithful" 
   rinput="bw_adjust" 
@@ -248,7 +256,7 @@ Example:
 ```html
 <leaflet-map longitude="-96.6" latitude="39.5" zoom="3">
    <deployr-leaflet-tilelayer 
-      rscript="uspop"
+      rscript="RUGclusters"
       routput="RRevoRUGS_2014"
       fitBounds="false"
       pointToLayer="{{pointToLayerHandler}}"
@@ -277,47 +285,18 @@ Example:
 </deployr-plot>
 ```
 
-
 ## R Scripts used
-
-### uspop.R
-
-```R
-# population data from http://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk
-
-url<-"http://166.78.105.110:7400/apps/csv/rug2014us.csv"
-rug<-read.csv(url, stringsAsFactors=F)
-
-#drop out ID column
-rug<-rug[,2:13]
-
-#create clusters based on group size plus population estimates
-mydata <- scale(rug[6:12])
-
-# K-Means Cluster Analysis
-fit <- kmeans(mydata, nclus) 
-
-# get cluster means 
-aggdata <- aggregate(mydata,by=list(fit$cluster),FUN=mean)
-
-# append cluster assignment
-rug <- cbind(rug, cluster=fit$cluster)
-
-revoPackage("leafletR")  #plot leaflet
-dat_geo <- toGeoJSON(data=rug, name="RRevoRUGS_2014")
-```
-
-#### Inputs
-
-- nclus _numeric_
-
-#### Outputs
-
-- geoJSON file
-- aggdata _data.frame_
 
 
 ### faithful.R
+
+Displays a histogram of eruption times of Old Faithful Change the graph by:
+
+- Changing the number of bins displayed in the histogram
+- Show/hide band at bottom of the graph showing individual observations
+- Show/hide density estimate
+- When density estimate on, adjust the smoothing bandwith used for calculating 
+  the curve
 
 ```R
 hist(faithful$eruptions,
@@ -347,3 +326,54 @@ if (density) {
 #### Outputs
 
 - Plot
+
+### RUGclusters.R
+
+- Shows locations of R User Groups in the US in 2014 
+- Clusters cities by census and population data 
+- Plot shows Population distribution (top) and number of cities (bottom) in each 
+  cluster
+- Slider changes the number of clusters which updates both map and graph
+
+
+```R
+# population data from http://factfinder.census.gov/faces/tableservices/jsf/pages/productview.xhtml?src=bkmk
+
+rug<-read.csv("http://166.78.105.110:7400/apps/csv/rug2014us.csv", stringsAsFactors=F)
+#drop out ID column
+rug<-rug[,2:13]
+
+#create clusters based on group size plus population estimates
+mydata <- scale(rug[6:12])
+
+# K-Means Cluster Analysis
+revoInput('{"name":"nclus","default":5, "render":"integer","label":"Nclusters"}')
+fit <- kmeans(mydata, nclus) 
+# append cluster assignment
+rug <- cbind(rug, cluster=fit$cluster)
+rug$cluster<-as.factor(rug$cluster)
+
+# Show cluster means
+summary<-data.frame(aggregate(mydata,by=list(fit$cluster),FUN=mean))
+
+# Simple Bar Plot 
+# use same vector of colors defined for the map
+colors<-c('#F8766D', '#C49A00', '#53B400','#02C094', '#00B6EB','#A58AFF', '#FB61D7') 
+par(mfrow=c(2,1), mar=c(2,4,1,1))
+boxplot(PopEst2014~cluster,data=rug, col=colors, ylab="Population Estimate 2014")
+counts<-table(rug$cluster)
+barplot(counts, col=colors, ylab="# of cities in cluster")
+
+# Create geojson file
+revoPackage('leafletR')  
+dat_geo <- toGeoJSON(data=rug, name="RRevoRUGS_2014")
+```
+
+#### Inputs
+
+- nclus _numeric_
+
+#### Outputs
+
+- RRevoRUGS_2014 _geoJSON file_
+- summary _data.frame_

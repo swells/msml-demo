@@ -1,5 +1,5 @@
 {
-  "name": "my-project2",
+  "name": "deployr-demo",
   "version": "0.0.0",
   "dependencies": {
     "core-elements": "Polymer/core-elements#^0.5.1",

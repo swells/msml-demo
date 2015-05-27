@@ -1,86 +1,16 @@
 :host {
-  display: block;
+    display: block;
 }
- 
-body
-{
-	background-color: #DDD;
-	font-family: sans-serif;
-	height: 100%;
-	margin: 0;
+
+body {
+    background-color: #DDD;
+    font-family: sans-serif;
+    height: 100%;
+    margin: 0;
 }
-#content
-{
-	background-color: #FFF;
-	box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
-	margin: 0 auto;
-	max-width: 790px;
-	padding: 1em;
+
+.leaflet-map {
+    border: 1px solid #aaa;
+
 }
-h2
-{
-	background: #edeeef;
-	background-color: #b0de5c;
-	background-image: linear-gradient(top, #b0de5c, #82cb00);
-	background-image: -moz-linear-gradient(top, #b0de5c, #82cb00);
-	background-image: -o-linear-gradient(top, #b0de5c, #82cb00);
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#b0de5c), to(#82cb00));
-	background-image: -webkit-linear-gradient(top, #b0de5c, #82cb00);
-	border-bottom: 1px solid #ccc;
-	border-radius: 5px;
-	border-right: 1px solid #ccc;
-	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
-	color: #fff;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#b0de5c', EndColorStr='#82cb00');
-	font-size: 1.8em;
-	font-weight: bold;
-	margin: 1.5em 0 0.5em -2px;
-	padding: .2em .5em;
-	text-shadow: 0 -1px 1px rgba(0,0,0,0.35);
-}
-.nav
-{
-	border-bottom: 1px dashed #000;
-	color: #000;
-	display: inline-block;
-	padding: 3px;
-	text-decoration: none;
-}
-.nav:hover
-{
-	background-color: #DDF;
-}
-leaflet-map,
-			geolocation-sample
-{
-	border: 1px solid #aaa;
-	height: 20em;
-	max-width: 20em;
-}
-geolocation-sample
-{
-	height: 21em;
-}
-pre
-{
-	background-color: #DDD;
-	clear: all;
-	font-size: large;
-	padding: 0.5em 1em;
-}
-.i
-{
-	color: #00D;
-}
-.a
-{
-	color: #008;
-}
-.v
-{
-	color: #800;
-}
-.c
-{
-	color: #080;
-}
+

@@ -144,11 +144,11 @@
             var model = this.$[this.rscript ? 'rscript' : 'rcode'].values;
             var df = model[this.rscript || this.rcode].outputs[this.routput];
 
-            /*
             console.log(df)
             var i = 0;
-            var MAX = df[0].values.length;
+            //var MAX = df[0].value.length;
 
+            /*
              for (var j = i; j < MAX; j++) {
                 var row = {};
                 df.forEach(function(item) {
@@ -158,26 +158,18 @@
                 data.push(row)
              }
 
-            Object.keys(df).forEach(function(item, i) {
+
+*/
+            if (Array.isArray(df)) {
+            df.forEach(function(item, i) {
+                console.log(item)
                 this.columns.push({
                     name: item.name
                 });
-                data[i][name] = 
 
-                item.values.forEach(function(v, index) {
-                    data.push()
-                });
-
-            });
-
-                for (var j = i; j < MAX; j++) {
-                    items.values[j]
-                    data.push()
-                }
-                i++;
-            });
-            */
-
+            }.bind(this));
+        }
+            console.log(this.columns);
 
             /*
             df.values.forEach(function(item, i) {
