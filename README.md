@@ -2,7 +2,7 @@
 
 Example POC that uses HTML5 Web Components to Declaratively bind DeployR enabled 
 R Scripts and R Code blocks to the UI. Elements can be composed to create more
-complicated R Analytic wep applications without needing to know JavaScript/CSS/HTML.
+complicated R Analytic web applications without needing to know JavaScript/CSS/HTML.
 
 ## Prerequisites
 
@@ -47,7 +47,7 @@ $ cd msml-demo
 $ npm run serve
 ```
 
-This will start a local webserver and launch your browser pointing to [http://localhost:3000](http://localhost:3000/#/)
+This will start a local web-server and launch your browser pointing to [http://localhost:3000](http://localhost:3000/#/)
 
 ## Experimenting
 
@@ -66,18 +66,18 @@ The `ui` directory contains files that you can *edit*.
 
    Defines the location to put any custom JavaScript if needed. Any function or
    property added to the object literal will be two-way data bound to the UI and
-   referenced using the `{{}}` expression in your ui.html file.
+   Referenced using the `{{}}` expression in your ui.html file.
 
 Examples:
 
 
 _ui.js_
 ```js
-var ui {	
+var ui {  
   hello: 'Hello how are you?'
 
   echo: function(msg) {
-  	return msg;
+    return msg;
   }
 };
 ```
@@ -133,7 +133,7 @@ Example:
    author="sheri" 
    directory="geo" 
    inputs="nclust" 
-   outputs="RRevoRUGS_2014,aggdata,plot"
+   outputs="RRevoRUGS_2014,summary,plot"
    runOnload="true">
 </deployr-rscript>
 
@@ -179,7 +179,7 @@ _input_.
 <deployr-checkbox></deployr-checkbox>
 ```
 
-Exmaple:
+Example:
 ```html
 <deployr-checkbox 
    rscript="faithful" 
@@ -209,7 +209,6 @@ state to a DeployR R Script _input_.
 ```
 
 Example:
-
 ```html   
 <deployr-slider
   rscript="RUGclusters" 
