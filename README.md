@@ -1,6 +1,6 @@
 # DeployR R Analytics Integration
 
-Example POC that uses HTML5 Web Components to Declaratively bind DeployR enabled 
+Example POC that uses HTML5 [Web Components](http://webcomponents.org/) to Declaratively bind DeployR enabled 
 R Scripts and R Code blocks to the UI. Elements can be composed to create more
 complicated R Analytic web applications without needing to know JavaScript/CSS/HTML.
 
